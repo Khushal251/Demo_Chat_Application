@@ -8,6 +8,7 @@ import {useSelector, useDispatch} from "react-redux";
 import { setAuthUser, setOtherUsers, setSelectedUser } from '../redux/userSlice';
 import { setMessages } from '../redux/messageSlice';
 import { BASE_URL } from '..';
+// import { useState } from "react";
  
 const Sidebar = () => {
     const [search, setSearch] = useState("");
@@ -31,11 +32,15 @@ const Sidebar = () => {
     }
     const searchSubmitHandler = (e) => {
         e.preventDefault();
-        const conversationUser = otherUsers?.find((user)=> user.fullName.toLowerCase().includes(search.toLowerCase()));
-        if(conversationUser){
-            dispatch(setOtherUsers([conversationUser]));
-        }else{
-            toast.error("User not found!");
+        if (otherUsers) {
+            const conversationUser = otherUsers.find(user => user.fullName && user.fullName.toLowerCase().includes(search.toLowerCase()));
+            if (conversationUser) {
+                dispatch(setOtherUsers([conversationUser]));
+            } else {
+                toast.error("User not found!");
+            }
+        } else {
+            toast.error("No users available for search.");
         }
     }
     return (
