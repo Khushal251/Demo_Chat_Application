@@ -16,10 +16,17 @@ const PORT = process.env.PORT || 5000;
 app.use(express.urlencoded({extended:true}));
 app.use(express.json()); 
 app.use(cookieParser());
-const corsOption={
-    origin:'http://localhost:3000',
-    credentials:true
-};
+// const corsOption={
+//     origin:'http://localhost:3000',
+//     credentials:true
+// };
+
+const corsOption = {
+    origin: ['http://localhost:3000','https://demo-chat-application-sepia.vercel.app/'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  };
 app.use(cors(corsOption)); 
 
 
